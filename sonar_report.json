@@ -1,0 +1,4 @@
+{
+    "status": "Executed",
+    "console_log_summary": "10:58:26.422 INFO  Scanner configuration file: C:\\Users\\Admin\\Downloads\\minicap\\tools\\sonar-scanner-6.1.0.4477-windows-x64\\bin\\..\\conf\\sonar-scanner.properties\n10:58:26.422 INFO  Project root configuration file: C:\\Users\\Admin\\Downloads\\minicap\\sonar-project.properties\n10:58:26.422 INFO  SonarScanner CLI 6.1.0.4477\n10:58:26.422 INFO  Java 17.0.11 Eclipse Adoptium (64-bit)\n10:58:26.422 INFO  Windows 10 10.0 amd64\n10:58:26.437 INFO  User cache: C:\\Users\\Admin\\.sonar\\cache\n10:58:26.931 INFO  EXECUTION FAILURE\n10:58:26.931 INFO  Total time: 0.509s\n"
+}
