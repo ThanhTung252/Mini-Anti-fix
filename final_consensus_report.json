@@ -1,0 +1,956 @@
+{
+    "project": "Multi-Tool Agentic SAST Framework",
+    "stage": "Stage 2: AI CWE/CVE Cross-reference & Assessment",
+    "scanned_directory": "motors-car-dealership-classified-listings",
+    "total_issues_analyzed": 58,
+    "ai_verified_vulnerabilities": [
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\elementor\\\\js\\\\motors-listings-search-tabs.js",
+            "line": 98,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ (XSS)",
+            "security_severity": "Medium",
+            "impact_level": "Có thể dẫn đến tấn công Cross-Site Scripting (XSS) do ký tự '<' không được thay thế toàn bộ.",
+            "confidence_score": "90%",
+            "ai_justification": "Đoạn mã sử dụng `selValue.replace(\"<\", \"\")` chỉ thay thế ký tự '<' đầu tiên. Nếu `selValue` chứa nhiều ký tự '<', các ký tự còn lại sẽ không được xử lý, tạo điều kiện cho kẻ tấn công thực hiện Cross-Site Scripting (XSS). Đây là một lỗi phổ biến khi sử dụng phương thức `replace()` mà không có cờ global hoặc biểu thức chính quy."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\elementor\\\\js\\\\motors-listings-search-tabs.js",
+            "line": 106,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ (XSS)",
+            "security_severity": "Medium",
+            "impact_level": "Có thể dẫn đến tấn công Cross-Site Scripting (XSS) do ký tự '>' không được thay thế toàn bộ.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như dòng 98, việc sử dụng `selValue.replace(\">\", \"\")` chỉ loại bỏ ký tự '>' đầu tiên. Điều này có thể bị bỏ qua nếu có nhiều hơn một ký tự '>' trong đầu vào, tạo điều kiện cho tấn công Cross-Site Scripting (XSS)."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\frontend\\\\inventory-view-type.js",
+            "line": 24,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu biến `key` có thể bị kiểm soát bởi người dùng và chứa các ký tự biểu thức chính quy phức tạp, nó có thể dẫn đến tấn công Regular Expression Denial-of-Service (ReDoS), làm tiêu tốn tài nguyên hệ thống và gây ra tình trạng từ chối dịch vụ.",
+            "confidence_score": "85%",
+            "ai_justification": "Đoạn mã tạo một đối tượng RegExp từ một chuỗi động có chứa biến `key`. Nếu `key` được kiểm soát bởi người dùng (ví dụ: thông qua tham số URL), kẻ tấn công có thể chèn các chuỗi độc hại gây ra tắc nghẽn hoặc treo ứng dụng do ReDoS."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\frontend\\\\lightgallery-all.js",
+            "line": 2535,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.wildcard-postmessage-configuration.wildcard-postmessage-configuration"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-922 / CWE-200",
+            "vulnerability_type": "Cấu hình postMessage không an toàn",
+            "security_severity": "Low",
+            "impact_level": "Giao tiếp liên cửa sổ với `targetOrigin` là `*` có thể dẫn đến rò rỉ thông tin hoặc kiểm soát không mong muốn nếu thông điệp chứa dữ liệu nhạy cảm hoặc lệnh quan trọng.",
+            "confidence_score": "95%",
+            "ai_justification": "`window.postMessage()` sử dụng wildcard `*` làm `targetOrigin`. Điều này cho phép bất kỳ domain nào cũng có thể nhận được thông điệp, dẫn đến rò rỉ thông tin hoặc kiểm soát không mong muốn nếu thông điệp chứa dữ liệu nhạy cảm hoặc lệnh quan trọng. Mặc dù thông điệp hiện tại chỉ là lệnh 'playVideo', nhưng nó cho thấy lỗ hổng trong cấu hình bảo mật giao tiếp giữa các cửa sổ."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\frontend\\\\lightgallery-all.js",
+            "line": 2543,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.wildcard-postmessage-configuration.wildcard-postmessage-configuration"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-922 / CWE-200",
+            "vulnerability_type": "Cấu hình postMessage không an toàn",
+            "security_severity": "Low",
+            "impact_level": "Giao tiếp liên cửa sổ với `targetOrigin` là `*` có thể dẫn đến rò rỉ thông tin hoặc kiểm soát không mong muốn nếu thông điệp chứa dữ liệu nhạy cảm hoặc lệnh quan trọng.",
+            "confidence_score": "95%",
+            "ai_justification": "Tương tự như dòng 2535, việc sử dụng `*` cho `targetOrigin` trong `postMessage` là không an toàn, có thể dẫn đến rò rỉ thông tin hoặc bị kiểm soát từ các origin không đáng tin cậy."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\frontend\\\\lightgallery-all.js",
+            "line": 2610,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.wildcard-postmessage-configuration.wildcard-postmessage-configuration"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-922 / CWE-200",
+            "vulnerability_type": "Cấu hình postMessage không an toàn",
+            "security_severity": "Low",
+            "impact_level": "Giao tiếp liên cửa sổ với `targetOrigin` là `*` có thể dẫn đến rò rỉ thông tin hoặc kiểm soát không mong muốn nếu thông điệp chứa dữ liệu nhạy cảm hoặc lệnh quan trọng.",
+            "confidence_score": "95%",
+            "ai_justification": "Tương tự như các trường hợp trên, `postMessage` với `targetOrigin` là `*` tiềm ẩn rủi ro bảo mật, mặc dù ở đây là lệnh 'pauseVideo' nhưng vẫn là một cấu hình không an toàn."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\frontend\\\\lightgallery-all.js",
+            "line": 2618,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.wildcard-postmessage-configuration.wildcard-postmessage-configuration"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-922 / CWE-200",
+            "vulnerability_type": "Cấu hình postMessage không an toàn",
+            "security_severity": "Low",
+            "impact_level": "Giao tiếp liên cửa sổ với `targetOrigin` là `*` có thể dẫn đến rò rỉ thông tin hoặc kiểm soát không mong muốn nếu thông điệp chứa dữ liệu nhạy cảm hoặc lệnh quan trọng.",
+            "confidence_score": "95%",
+            "ai_justification": "Tương tự như các trường hợp trên, `postMessage` với `targetOrigin` là `*` tiềm ẩn rủi ro bảo mật."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\jquery.stmdatetimepicker.js",
+            "line": 915,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu biến `options.mask` có thể bị kiểm soát bởi người dùng, việc tạo biểu thức chính quy động có thể dẫn đến tấn công Regular Expression Denial-of-Service (ReDoS).",
+            "confidence_score": "85%",
+            "ai_justification": "Biến `reg` được tạo ra từ chuỗi `options.mask` (được xây dựng thông qua nhiều phép thay thế). Nếu `options.mask` là đầu vào do người dùng kiểm soát, việc xây dựng `RegExp` động như vậy có thể dẫn đến lỗ hổng Regular Expression Denial-of-Service (ReDoS), làm tiêu tốn tài nguyên hệ thống và gây ra DoS."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\jquery.stmdatetimepicker.js",
+            "line": 1850,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.eval-detected.eval-detected"
+                },
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                },
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.eval-detected.eval-detected"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-94 / CWE-1333",
+            "vulnerability_type": "Thực thi mã tùy ý (Code Injection) và Tấn công ReDoS",
+            "security_severity": "Critical",
+            "impact_level": "Có thể dẫn đến Remote Code Execution (RCE) thông qua `eval()` và Denial of Service (DoS) thông qua `RegExp()` nếu đầu vào người dùng bị thao túng.",
+            "confidence_score": "95%",
+            "ai_justification": "Đoạn mã sử dụng `eval()` để thực thi chuỗi `code` được xây dựng động. Nếu chuỗi `code` này có thể bị thao túng bởi đầu vào của người dùng (ví dụ: thông qua biến `format`), nó sẽ dẫn đến lỗ hổng Code Injection, cho phép kẻ tấn công thực thi mã tùy ý trên máy chủ (RCE). Ngoài ra, việc tạo `RegExp` động cũng tiềm ẩn rủi ro ReDoS."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\listing-manager\\\\fields\\\\color.js",
+            "line": 233,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ",
+            "security_severity": "Low",
+            "impact_level": "Nếu ký tự '%' là một phần của đầu vào nhạy cảm, việc chỉ thay thế lần xuất hiện đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `replace('%', '')` chỉ thay thế ký tự '%' đầu tiên. Nếu `this.input.value` chứa nhiều ký tự '%', các ký tự còn lại sẽ không được xử lý, dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn. Mức độ nghiêm trọng phụ thuộc vào việc giá trị này được sử dụng như thế nào sau đó."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\listing-manager\\\\listing-manager-search.js",
+            "line": 80,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "High",
+            "impact_level": "Mặc dù có cơ chế thoát ký tự đặc biệt, nhưng việc tạo biểu thức chính quy động với cờ 'ig' dựa trên đầu vào người dùng (`search`) vẫn tiềm ẩn rủi ro ReDoS, có thể gây ra Denial of Service.",
+            "confidence_score": "90%",
+            "ai_justification": "Mặc dù đoạn mã cố gắng escape các ký tự đặc biệt trong biến `search` trước khi tạo `RegExp`, việc tạo một biểu thức chính quy động với cờ `ig` và dựa trên đầu vào người dùng (`search`) vẫn tiềm ẩn rủi ro Regular Expression Denial-of-Service (ReDoS) nếu kẻ tấn công có thể tạo ra các chuỗi tìm kiếm phức tạp gây cạn kiệt tài nguyên xử lý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\motors-datetimepicker.js",
+            "line": 1137,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu `_options.allowDateRe` có thể bị kiểm soát bởi người dùng và chứa các mẫu biểu thức chính quy dễ bị tấn công ReDoS, điều này có thể dẫn đến tình trạng từ chối dịch vụ cho ứng dụng.",
+            "confidence_score": "85%",
+            "ai_justification": "Biến `_options.allowDateRe` được truyền trực tiếp vào hàm tạo `RegExp`. Nếu đầu vào này đến từ người dùng và chứa một biểu thức chính quy dễ bị tấn công ReDoS, nó có thể dẫn đến tình trạng từ chối dịch vụ cho ứng dụng."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\js\\\\motors-datetimepicker.js",
+            "line": 2332,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu biến `options.format` (từ đó `reg` được xây dựng) có thể bị kiểm soát bởi người dùng, việc tạo biểu thức chính quy động có thể dẫn đến tấn công Regular Expression Denial-of-Service (ReDoS).",
+            "confidence_score": "85%",
+            "ai_justification": "Tương tự như dòng 915 trong `jquery.stmdatetimepicker.js`, biến `reg` được xây dựng động và được sử dụng để tạo `RegExp`. Nếu `reg` có thể bị thao túng bởi người dùng, điều này sẽ tạo ra lỗ hổng ReDoS."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\assets\\\\libs\\\\tinymce\\\\js\\\\tinymce\\\\plugins\\\\help\\\\js\\\\i18n\\\\keynav\\\\ar.js",
+            "line": 41,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "generic.unicode.security.bidi.contains-bidirectional-characters"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1021",
+            "vulnerability_type": "Ký tự Unicode hai chiều (False Positive)",
+            "security_severity": "False Positive",
+            "impact_level": "Không có tác động bảo mật. Các ký tự này là cần thiết cho ngôn ngữ Arabic.",
+            "confidence_score": "10%",
+            "ai_justification": "Đoạn mã chứa các ký tự Unicode hai chiều (bidi characters) là hoàn toàn bình thường và cần thiết trong file ngôn ngữ Arabic (ar.js) để hiển thị văn bản đúng cách (từ phải sang trái). Đây không phải là lỗ hổng bảo mật mà là tính năng của ngôn ngữ, do đó được đánh giá là False Positive."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\actions.php",
+            "line": 452,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$image_user` có thể bị kiểm soát bởi người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống, dẫn đến từ chối dịch vụ hoặc mất dữ liệu.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được gọi với biến `$image_user`. Dựa trên ngữ cảnh, `$image_user` là một đường dẫn tệp có thể bắt nguồn từ dữ liệu tải lên hoặc dữ liệu khác do người dùng kiểm soát. Nếu không có kiểm tra xác thực và làm sạch nghiêm ngặt, kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\actions.php",
+            "line": 479,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$user_old_avatar` có thể bị kiểm soát bởi người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống, dẫn đến từ chối dịch vụ hoặc mất dữ liệu.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được sử dụng để xóa tệp `$user_old_avatar`. Nếu giá trị của `$user_old_avatar` có thể bị thao túng bởi kẻ tấn công, điều này sẽ tạo ra lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\actions.php",
+            "line": 525,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Mặc dù có các kiểm tra bảo vệ, nhưng vẫn có rủi ro xóa tệp tùy ý nếu đầu vào `$user_old_avatar` bị thao túng để vượt qua các kiểm tra bảo mật.",
+            "confidence_score": "90%",
+            "ai_justification": "Mặc dù có các kiểm tra `is_within_uploads` và `is_valid_image` trước khi gọi `unlink()`, nếu `$user_old_avatar` vẫn có thể bị thao túng để trỏ đến các tệp ngoài thư mục tải lên hoặc vượt qua các kiểm tra, lỗ hổng xóa tệp tùy ý vẫn có thể xảy ra."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\admin\\\\announcement\\\\assets\\\\vue-resource.js",
+            "line": 7,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu biến `e` (được sử dụng để xây dựng regex động) có thể bị kiểm soát bởi người dùng, nó có thể dẫn đến tấn công Regular Expression Denial-of-Service (ReDoS).",
+            "confidence_score": "80%",
+            "ai_justification": "Trong đoạn mã được rút gọn, `new RegExp(\"[\"+e+\"]+$\")` tạo một biểu thức chính quy động từ biến `e`. Nếu `e` là đầu vào do người dùng kiểm soát và chứa các ký tự regex đặc biệt hoặc mẫu tấn công ReDoS, nó có thể gây ra lỗi từ chối dịch vụ (DoS)."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\admin\\\\setup-wizard\\\\includes\\\\ajax_actions.php",
+            "line": 127,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.injection.tainted-filename.tainted-filename"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-22 / CWE-73",
+            "vulnerability_type": "Kiểm soát tên tệp/đường dẫn bên ngoài",
+            "security_severity": "High",
+            "impact_level": "Nếu `$plugin_slug` có thể bị thao túng, kẻ tấn công có thể kiểm tra sự tồn tại của các tệp hoặc thư mục ngoài thư mục plugin, dẫn đến rò rỉ thông tin.",
+            "confidence_score": "90%",
+            "ai_justification": "Đoạn mã xây dựng đường dẫn tệp bằng cách nối `WP_PLUGIN_DIR` với `$plugin_slug`. Nếu biến `$plugin_slug` có thể bị kiểm soát bởi người dùng và chứa các chuỗi path traversal (ví dụ: `../`), kẻ tấn công có thể kiểm tra sự tồn tại của các tệp hoặc thư mục nằm ngoài thư mục plugin mong muốn, dẫn đến rò rỉ thông tin hệ thống."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\admin\\\\setup-wizard\\\\includes\\\\ajax_actions.php",
+            "line": 347,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$import_file` có thể bị kiểm soát bởi người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống, dẫn đến từ chối dịch vụ hoặc mất dữ liệu.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được gọi với biến `$import_file`. Nếu `$import_file` có thể bị thao túng bởi đầu vào của người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ, gây ra tình trạng từ chối dịch vụ hoặc mất dữ liệu."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\class\\\\Features\\\\email_template_manager\\\\assets\\\\js\\\\bootstrap.js",
+            "line": 184,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu `expectedTypes` có thể bị kiểm soát bởi người dùng, việc tạo biểu thức chính quy động có thể dẫn đến tấn công Regular Expression Denial-of-Service (ReDoS).",
+            "confidence_score": "85%",
+            "ai_justification": "Đoạn mã tạo một đối tượng RegExp từ biến `expectedTypes`. Nếu `expectedTypes` được lấy từ cấu hình có thể bị thao túng bởi người dùng hoặc chứa các mẫu biểu thức chính quy dễ bị tấn công ReDoS, điều này có thể dẫn đến lỗi từ chối dịch vụ."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\class\\\\ListingManager\\\\Pages\\\\Option.php",
+            "line": 248,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.injection.tainted-sql-string.tainted-sql-string"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-89",
+            "vulnerability_type": "SQL Injection (False Positive)",
+            "security_severity": "False Positive",
+            "impact_level": "Không có tác động SQL Injection. Đoạn mã chỉ định dạng chuỗi hiển thị trên UI.",
+            "confidence_score": "10%",
+            "ai_justification": "Đoạn mã sử dụng `sprintf` để định dạng một chuỗi văn bản sẽ hiển thị trong giao diện người dùng (placeholder của trường select). Các biến `$option['single_name']` hoặc `$slug` không được đưa trực tiếp vào câu lệnh SQL mà chỉ dùng để tạo nhãn hiển thị. Do đó, đây là một False Positive cho lỗ hổng SQL Injection. Có thể tiềm ẩn XSS nếu chuỗi này không được thoát đúng cách khi hiển thị trên HTML, nhưng không phải SQLi."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\stm-mailchimp-integration\\\\classes\\\\STMMailChimpBase.php",
+            "line": 103,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unserialize-use.unserialize-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-502",
+            "vulnerability_type": "Giải tuần tự dữ liệu không đáng tin cậy",
+            "security_severity": "Critical",
+            "impact_level": "Có thể dẫn đến Remote Code Execution (RCE) nếu kẻ tấn công có thể thao túng dữ liệu trong `$integration`.",
+            "confidence_score": "95%",
+            "ai_justification": "Hàm `unserialize()` được gọi trên biến `$integration`, được lấy từ `get_option`. Nếu dữ liệu trong option này có thể bị kiểm soát bởi kẻ tấn công, việc giải tuần tự dữ liệu không đáng tin cậy có thể dẫn đến thực thi mã tùy ý từ xa (Remote Code Execution - RCE) thông qua các gadget PHP."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\stm-mailchimp-integration\\\\classes\\\\STMMailchimpRequest.php",
+            "line": 95,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.curl-ssl-verifypeer-off.curl-ssl-verifypeer-off"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-295",
+            "vulnerability_type": "Vô hiệu hóa xác minh SSL/TLS",
+            "security_severity": "High",
+            "impact_level": "Kết nối curl dễ bị tấn công Man-in-the-Middle (MITM), dữ liệu có thể bị chặn và đọc/thay đổi.",
+            "confidence_score": "100%",
+            "ai_justification": "Đoạn mã vô hiệu hóa xác minh chứng chỉ SSL của đối tác bằng cách đặt `CURLOPT_SSL_VERIFYPEER` thành 0. Điều này làm cho kết nối curl dễ bị tấn công Man-in-the-Middle (MITM), nơi kẻ tấn công có thể chặn và đọc/thay đổi dữ liệu truyền tải mà không bị phát hiện."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\stm-mailchimp-integration\\\\classes\\\\STMMailchimpRequest.php",
+            "line": 113,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.curl-ssl-verifypeer-off.curl-ssl-verifypeer-off"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-295",
+            "vulnerability_type": "Vô hiệu hóa xác minh SSL/TLS",
+            "security_severity": "High",
+            "impact_level": "Kết nối curl dễ bị tấn công Man-in-the-Middle (MITM), dữ liệu có thể bị chặn và đọc/thay đổi.",
+            "confidence_score": "100%",
+            "ai_justification": "Tương tự như dòng 95, việc vô hiệu hóa xác minh SSL bằng cách đặt `CURLOPT_SSL_VERIFYPEER, 0` là một lỗ hổng nghiêm trọng, làm giảm tính bảo mật của giao tiếp mạng và tiềm ẩn nguy cơ MITM."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\stm-mailchimp-integration\\\\classes\\\\STMMailchimpRequest.php",
+            "line": 132,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.curl-ssl-verifypeer-off.curl-ssl-verifypeer-off"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-295",
+            "vulnerability_type": "Vô hiệu hóa xác minh SSL/TLS",
+            "security_severity": "High",
+            "impact_level": "Kết nối curl dễ bị tấn công Man-in-the-Middle (MITM), dữ liệu có thể bị chặn và đọc/thay đổi.",
+            "confidence_score": "100%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc vô hiệu hóa xác minh SSL bằng cách đặt `CURLOPT_SSL_VERIFYPEER, 0` là một lỗ hổng nghiêm trọng, làm giảm tính bảo mật của giao tiếp mạng và tiềm ẩn nguy cơ MITM."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1092,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được gọi với biến `$tmp_file_name`. Mặc dù tệp tạm thời thường do hệ thống tạo, nhưng tên tệp hoặc đường dẫn của nó có thể bị ảnh hưởng bởi đầu vào người dùng (ví dụ: qua URL nhập liệu). Nếu kẻ tấn công có thể thao túng biến này, họ có thể xóa các tệp tùy ý. Việc sử dụng `@` để bỏ qua lỗi cũng làm giảm khả năng phát hiện vấn đề."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1108,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như dòng 1092, `unlink()` trên `$tmp_file_name` tiềm ẩn rủi ro xóa tệp tùy ý nếu đầu vào người dùng có thể ảnh hưởng đến đường dẫn của tệp tạm thời này."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1124,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc sử dụng `unlink()` với `$tmp_file_name` mà không kiểm tra kỹ lưỡng nguồn gốc đầu vào vẫn là một rủi ro xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1131,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc sử dụng `unlink()` với `$tmp_file_name` mà không kiểm tra kỹ lưỡng nguồn gốc đầu vào vẫn là một rủi ro xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1136,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc sử dụng `unlink()` với `$tmp_file_name` mà không kiểm tra kỹ lưỡng nguồn gốc đầu vào vẫn là một rủi ro xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1142,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc sử dụng `unlink()` với `$tmp_file_name` mà không kiểm tra kỹ lưỡng nguồn gốc đầu vào vẫn là một rủi ro xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1189,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc sử dụng `unlink()` với `$tmp_file_name` mà không kiểm tra kỹ lưỡng nguồn gốc đầu vào vẫn là một rủi ro xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1209,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.md5-loose-equality.md5-loose-equality"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-785",
+            "vulnerability_type": "So sánh lỏng (False Positive cho MD5)",
+            "security_severity": "Low",
+            "impact_level": "Có thể dẫn đến hành vi không mong muốn hoặc bỏ qua logic chuyển hướng nếu có chuỗi khớp lỏng lẻo.",
+            "confidence_score": "50%",
+            "ai_justification": "Đoạn mã sử dụng phép so sánh lỏng `!=` giữa `$headers['x-final-location']` và `$url`. Mặc dù quy tắc Semgrep chỉ ra `md5-loose-equality`, nhưng không có giá trị MD5 nào được sử dụng trong đoạn này. Tuy nhiên, việc sử dụng so sánh lỏng có thể dẫn đến kết quả không mong muốn nếu các giá trị có kiểu khác nhau nhưng được coi là bằng nhau trong PHP. Trong trường hợp này, vì đây là so sánh URL, tác động có thể thấp nhưng vẫn là một thực hành không tốt."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\functions.php",
+            "line": 144,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.injection.tainted-filename.tainted-filename"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-22 / CWE-73",
+            "vulnerability_type": "Kiểm soát tên tệp/đường dẫn bên ngoài",
+            "security_severity": "High",
+            "impact_level": "Nếu `$plugin_file` có thể bị thao túng, kẻ tấn công có thể kiểm tra sự tồn tại của các tệp hoặc thư mục ngoài thư mục plugin, dẫn đến rò rỉ thông tin.",
+            "confidence_score": "90%",
+            "ai_justification": "Việc xây dựng đường dẫn tệp `WP_PLUGIN_DIR . '/' . $plugin_file` với `$plugin_file` có thể bị kiểm soát bởi người dùng sẽ tạo điều kiện cho tấn công Path Traversal, cho phép kẻ tấn công kiểm tra sự tồn tại của các tệp bên ngoài thư mục plugin."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\functions.php",
+            "line": 264,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$temp_file_path` có thể bị kiểm soát bởi người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống, dẫn đến từ chối dịch vụ hoặc mất dữ liệu.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được sử dụng để xóa `$temp_file_path`. Nếu đường dẫn này có thể bị thao túng bởi đầu vào của người dùng trong quá trình nhập nội dung demo, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\functions.php",
+            "line": 469,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$zip_path` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua tên tệp nén độc hại), kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được gọi trên `$zip_path`. Nếu `$zip_path` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua một tên tệp nén độc hại), kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\functions.php",
+            "line": 482,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$zip_path` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua tên tệp nén độc hại), kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như dòng 469, việc sử dụng `unlink()` với `$zip_path` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\functions.php",
+            "line": 492,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$zip_path` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua tên tệp nén độc hại), kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp trên, việc sử dụng `unlink()` với `$zip_path` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1109,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1126,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1143,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1151,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1157,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1164,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1212,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$tmp_file_name` có thể bị kiểm soát bởi người dùng (ví dụ: thông qua URL nhập liệu), kẻ tấn công có thể xóa các tệp tùy ý.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `unlink` khác, việc sử dụng `unlink()` với `$tmp_file_name` mà không có xác thực và làm sạch nghiêm ngặt có thể dẫn đến lỗ hổng xóa tệp tùy ý."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\includes\\\\starter-theme\\\\dashboard\\\\wizard\\\\includes\\\\wordpress-importer\\\\class-stm-wp-import-base.php",
+            "line": 1233,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.md5-loose-equality.md5-loose-equality"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-785",
+            "vulnerability_type": "So sánh lỏng (False Positive cho MD5)",
+            "security_severity": "Low",
+            "impact_level": "Có thể dẫn đến hành vi không mong muốn hoặc bỏ qua logic chuyển hướng nếu có chuỗi khớp lỏng lẻo.",
+            "confidence_score": "50%",
+            "ai_justification": "Tương tự như trường hợp ở file `includes\\\\lib\\\\wordpress-importer\\\\class-stm-wp-import-base.php` dòng 1209, đây là một phép so sánh lỏng `!=` không liên quan đến MD5, nhưng vẫn được coi là thực hành không tốt và có thể gây ra hành vi không mong muốn."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\magic-kit\\\\assets\\\\js\\\\classes\\\\components\\\\MagicSearch.js",
+            "line": 38,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Chèn HTML không an toàn (XSS)",
+            "security_severity": "High",
+            "impact_level": "Nếu đầu vào `event.target.value` không được làm sạch đúng cách, kẻ tấn công có thể chèn mã HTML/JavaScript độc hại vào trang web, dẫn đến tấn công Cross-Site Scripting (XSS).",
+            "confidence_score": "95%",
+            "ai_justification": "Hàm `insertAdjacentHTML()` được sử dụng để chèn nội dung HTML được tạo ra từ `ths.resultsHTML(event.target.value.toLowerCase())`. Nếu `event.target.value` (thường là đầu vào của người dùng) không được làm sạch (sanitize) đúng cách trước khi tạo `ths.resultsHTML`, kẻ tấn công có thể chèn mã độc vào trang web, dẫn đến lỗ hổng Cross-Site Scripting (XSS)."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\magic-kit\\\\assets\\\\js\\\\libs\\\\color-picker-extend.js",
+            "line": 84,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ",
+            "security_severity": "Low",
+            "impact_level": "Nếu ký tự '%' là một phần của đầu vào nhạy cảm, việc chỉ thay thế lần xuất hiện đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như dòng 233 trong `listing-manager\\\\fields\\\\color.js`, việc chỉ thay thế ký tự '%' đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn nếu có nhiều ký tự '%' trong đầu vào."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\magic-kit\\\\assets\\\\js\\\\libs\\\\jshelper.js",
+            "line": 205,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1321",
+            "vulnerability_type": "Tấn công ô nhiễm Prototype",
+            "security_severity": "High",
+            "impact_level": "Có thể dẫn đến Remote Code Execution (RCE) trong một số môi trường (ví dụ: Node.js) hoặc Denial of Service (DoS) thông qua việc thao túng các thuộc tính của `Object.prototype`.",
+            "confidence_score": "85%",
+            "ai_justification": "Đoạn mã truy cập thuộc tính `result[key]` trong một vòng lặp. Mặc dù có kiểm tra `hasOwnProperty` trước đó, nhưng việc gán trực tiếp `result = result[key]` mà không đảm bảo `key` không phải là các thuộc tính nguyên mẫu (prototype properties) nếu `result` có thể bị thao túng bởi đầu vào người dùng có thể dẫn đến lỗ hổng Prototype Pollution. Điều này cho phép kẻ tấn công thêm hoặc sửa đổi các thuộc tính của `Object.prototype`, có thể dẫn đến RCE hoặc DoS."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\nuxy\\\\metaboxes\\\\assets\\\\vendors\\\\js\\\\vue.js",
+            "line": 518,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1321",
+            "vulnerability_type": "Tấn công ô nhiễm Prototype",
+            "security_severity": "High",
+            "impact_level": "Có thể dẫn đến Remote Code Execution (RCE) trong một số môi trường (ví dụ: Node.js) hoặc Denial of Service (DoS) thông qua việc thao túng các thuộc tính của `Object.prototype`.",
+            "confidence_score": "85%",
+            "ai_justification": "Tương tự như dòng 205 trong `jshelper.js`, đoạn mã này truy cập thuộc tính `obj[segments[i]]` trong vòng lặp. Nếu `segments[i]` có thể bị kiểm soát bởi đầu vào người dùng, nó có thể dẫn đến lỗ hổng Prototype Pollution."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\nuxy\\\\metaboxes\\\\general_components\\\\es6\\\\color.js",
+            "line": 103,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ",
+            "security_severity": "Low",
+            "impact_level": "Nếu ký tự '%' là một phần của đầu vào nhạy cảm, việc chỉ thay thế lần xuất hiện đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `replace('%', '')` khác, việc chỉ thay thế ký tự '%' đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\nuxy\\\\metaboxes\\\\general_components\\\\es6\\\\color.js",
+            "line": 104,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ",
+            "security_severity": "Low",
+            "impact_level": "Nếu ký tự '%' là một phần của đầu vào nhạy cảm, việc chỉ thay thế lần xuất hiện đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `replace('%', '')` khác, việc chỉ thay thế ký tự '%' đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\nuxy\\\\metaboxes\\\\general_components\\\\js\\\\color.js",
+            "line": 150,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cwe_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ",
+            "security_severity": "Low",
+            "impact_level": "Nếu ký tự '%' là một phần của đầu vào nhạy cảm, việc chỉ thay thế lần xuất hiện đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `replace('%', '')` khác, việc chỉ thay thế ký tự '%' đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\nuxy\\\\metaboxes\\\\general_components\\\\js\\\\color.js",
+            "line": 151,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.incomplete-sanitization.incomplete-sanitization"
+                }
+            ],
+            "cwe_cwe_mapping": "CWE-79",
+            "vulnerability_type": "Làm sạch đầu vào không đầy đủ",
+            "security_severity": "Low",
+            "impact_level": "Nếu ký tự '%' là một phần của đầu vào nhạy cảm, việc chỉ thay thế lần xuất hiện đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn.",
+            "confidence_score": "90%",
+            "ai_justification": "Tương tự như các trường hợp `replace('%', '')` khác, việc chỉ thay thế ký tự '%' đầu tiên có thể dẫn đến dữ liệu không hợp lệ hoặc hành vi không mong muốn."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\nuxy\\\\metaboxes\\\\general_components\\\\js\\\\multiselect.js",
+            "line": 90,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                },
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                },
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.browser.security.wildcard-postmessage-configuration.wildcard-postmessage-configuration"
+                },
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-1333",
+            "vulnerability_type": "Tấn công từ chối dịch vụ thông qua Regex (ReDoS) và Cấu hình postMessage không an toàn (False Positive)",
+            "security_severity": "Medium",
+            "impact_level": "Nếu các biến được dùng để xây dựng regex có thể bị kiểm soát bởi người dùng, có thể dẫn đến ReDoS. Lỗi `wildcard-postmessage-configuration` là False Positive do không xuất hiện trong snippet này.",
+            "confidence_score": "70%",
+            "ai_justification": "Đoạn mã được rút gọn (minified), chứa các hàm tạo `RegExp` động được Semgrep phát hiện. Nếu các biến được sử dụng để xây dựng RegExp này (ví dụ: `n` trong mã gốc) có thể bị kiểm soát bởi người dùng, điều này có thể dẫn đến lỗ hổng Regular Expression Denial-of-Service (ReDoS), gây ra tình trạng từ chối dịch vụ. Đối với lỗ hổng `wildcard-postmessage-configuration`, đoạn mã được cung cấp không hiển thị bất kỳ lệnh `postMessage` nào với `targetOrigin` là `*`. Do đó, đây là False Positive cho quy tắc đó dựa trên snippet này."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\templates\\\\user\\\\private\\\\become-dealer.php",
+            "line": 147,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$image_user` có thể bị kiểm soát bởi người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống, dẫn đến từ chối dịch vụ hoặc mất dữ liệu.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được gọi với biến `$image_user`. Dựa trên ngữ cảnh, `$image_user` là một đường dẫn tệp có thể bắt nguồn từ dữ liệu tải lên hoặc dữ liệu khác do người dùng kiểm soát. Nếu không có kiểm tra xác thực và làm sạch nghiêm ngặt, kẻ tấn công có thể xóa các tệp tùy ý trên máy chủ."
+        },
+        {
+            "file_path": "motors-car-dealership-classified-listings\\\\templates\\\\user\\\\private\\\\become-dealer.php",
+            "line": 168,
+            "detected_by_tools": [
+                {
+                    "tool": "Semgrep",
+                    "rule_id": "php.lang.security.unlink-use.unlink-use"
+                }
+            ],
+            "cwe_cve_mapping": "CWE-73",
+            "vulnerability_type": "Xóa tệp tùy ý",
+            "security_severity": "High",
+            "impact_level": "Nếu `$user_old_avatar` có thể bị kiểm soát bởi người dùng, kẻ tấn công có thể xóa các tệp tùy ý trên hệ thống, dẫn đến từ chối dịch vụ hoặc mất dữ liệu.",
+            "confidence_score": "90%",
+            "ai_justification": "Hàm `unlink()` được sử dụng để xóa tệp `$user_old_avatar`. Nếu giá trị của `$user_old_avatar` có thể bị thao túng bởi kẻ tấn công, điều này sẽ tạo ra lỗ hổng xóa tệp tùy ý."
+        }
+    ]
+}
